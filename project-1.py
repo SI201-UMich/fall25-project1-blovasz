@@ -123,6 +123,14 @@ class TestPendata(unittest.TestCase):
         self.penguin = Pendata("penguins.csv")
         self.penguin.build_dict()
 
+        self.species1 = "Adelie"
+        self.species2 = "Gentoo"
+        self.species3 = "Chinstrap"
+
+        self.island1 = "Torgersen"
+        self.island2 = "Biscoe"
+        self.island3 = "Dream"
+
     def test_build_dict(self): # Edge Test #1
         """
         Testing the first 5 and last 5 datasets
@@ -149,6 +157,7 @@ class TestPendata(unittest.TestCase):
         """
         Testing if the tupple returned is correct
         """
+        self.assertEqual(self.penguin.s_avg_bill())
 
     def test_i_avg_bill(self): #Gen Test #2
         """
