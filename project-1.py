@@ -120,14 +120,25 @@ class TestPendata(unittest.TestCase):
     A class for testing Pendata
     """
     def setUp(self):
-        self.data = Pendata("penguins.csv")
-        self.data.build_dict()
+        self.penguin = Pendata("penguins.csv")
+        self.penguin.build_dict()
 
     def test_build_dict(self): # Edge Test #1
         """
-        Testing the first 20 and last 20 datasets
-        in the dictionairy.
+        Testing the first 5 and last 5 datasets
+        in the dictionairy. As well the correct amount
+        of data points entered.
         """
+        self.assertEqual(len(self.penguin.dict["species"]),344)
+        self.assertEqual(self.penguin.dict["bill len"][:5],
+                         [39.1,39.5,40.3,0.0,36.7])
+        self.assertEqual(self.penguin.dict["bill len"][-5:],
+                         [55.8,43.5,49.6,50.8,50.2])
+        self.assertEqual(self.penguin.dict["bill depth"][:5],
+                         [18.7,17.4,18.0,0.0,19.3])
+        self.assertEqual(self.penguin.dict["bill depth"][-5:],
+                         [19.8,18.1,18.2,19.0,18.7])
+
     def test_txtfile(self): # Edge Test #2
         """
         Testing if first two and last two
@@ -190,4 +201,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    unittest.main()
+    unittest.main(verbosity=2)
