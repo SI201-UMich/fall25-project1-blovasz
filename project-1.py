@@ -49,7 +49,7 @@ class Pendata():
         elif key == "flipper len" or key =="body mass":
             self.dict[key].append(int(split[x]))
         else:
-            self.dict[key].append(split[x])
+            self.dict[key].append(split[x].strip('"'))
     
     def build_dict(self):
         """
@@ -58,9 +58,9 @@ class Pendata():
         """
         for line in self.data[1:]:
             split = line.split(",")
-            self.dict["num"].append(str(split[0]))
-            self.dict["species"].append(str(split[1]))
-            self.dict["island"].append(str(split[2]))
+            self.dict["num"].append(str(split[0].strip('"')))
+            self.dict["species"].append(str(split[1].strip('"')))
+            self.dict["island"].append(str(split[2].strip('"')))
             self.checking_data(split, "bill len",3)
             self.checking_data(split, "bill depth", 4)
             self.checking_data(split, "flipper len", 5)
@@ -92,7 +92,10 @@ class Pendata():
                 sum_bdep += self.dict["bill depth"][i]
                 count += 1
         
-        return (sum_blen / count, sum_bdep / count)
+        x = sum_blen/count
+        y = sum_bdep/count
+        
+        return (round(x,2), round(y,2))
 
 
     def s_avg_bill(self, species):
@@ -113,7 +116,10 @@ class Pendata():
                 sum_bdep += self.dict["bill depth"][i]
                 count += 1
         
-        return (sum_blen / count, sum_bdep / count)
+        x = sum_blen/count
+        y = sum_bdep/count
+        
+        return (round(x,2), round(y,2))
 
 class TestPendata(unittest.TestCase):
     """
@@ -157,12 +163,17 @@ class TestPendata(unittest.TestCase):
         """
         Testing if the tupple returned is correct
         """
-        self.assertEqual(self.penguin.s_avg_bill())
+        self.assertEqual(self.penguin.s_avg_bill(self.species1), (38.54,18.23))
+        self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.52,15.1))
+        self.assertEqual(self.penguin.s_avg_bill(self.species3), (49.56,18.7))
 
     def test_i_avg_bill(self): #Gen Test #2
         """
         Testing if the tupple returned is correct
         """
+        self.assertEqual(self.penguin.i_avg_bill(self.island1), (40.54,19.18))
+        self.assertEqual(self.penguin.i_avg_bill(self.island2), (46.06,16.17))
+        self.assertEqual(self.penguin.i_avg_bill(self.island2), (45.64,18.96))
 
 
 
@@ -181,14 +192,14 @@ def writing(penguin, fname):
     for s in dic["species"]:
         if s not in s_used:
             len, dep = penguin.s_avg_bill(s)
-            file.write(f"Species: {s} Bill Length: {len:.1f} Bill Depth: {dep:.1f}\n")
+            file.write(f"Species: {s} Bill Length: {len} Bill Depth: {dep}\n")
             s_used.append(s)
 
     file.write("\nAverage Bill Length & Depth (mm) for Penguins on Different Islands:\n")
     for i in dic["island"]:
         if i not in i_used:
             len,dep = penguin.i_avg_bill(i)
-            file.write(f"Island: {i} Bill Length: {len:.1f} Bill Depth: {dep:.1f}\n")
+            file.write(f"Island: {i} Bill Length: {len} Bill Depth: {dep}\n")
             i_used.append(i)
 
     file.close()

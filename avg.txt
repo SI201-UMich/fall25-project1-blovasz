@@ -1,9 +1,9 @@
 Average Bill Length & Depth (mm) for Different Penguin Species:
-Species: "Adelie" Bill Length: 38.5 Bill Depth: 18.2
-Species: "Gentoo" Bill Length: 47.1 Bill Depth: 14.9
-Species: "Chinstrap" Bill Length: 48.8 Bill Depth: 18.4
+Species: Adelie Bill Length: 38.54 Bill Depth: 18.23
+Species: Gentoo Bill Length: 47.12 Bill Depth: 14.86
+Species: Chinstrap Bill Length: 48.83 Bill Depth: 18.42
 
 Average Bill Length & Depth (mm) for Penguins on Different Islands:
-Island: "Torgersen" Bill Length: 38.2 Bill Depth: 18.1
-Island: "Biscoe" Bill Length: 45.0 Bill Depth: 15.8
-Island: "Dream" Bill Length: 44.2 Bill Depth: 18.3
+Island: Torgersen Bill Length: 38.2 Bill Depth: 18.07
+Island: Biscoe Bill Length: 44.99 Bill Depth: 15.78
+Island: Dream Bill Length: 44.17 Bill Depth: 18.34
