@@ -119,6 +119,32 @@ class TestPendata(unittest.TestCase):
     """
     A class for testing Pendata
     """
+    def setUp(self):
+        self.data = Pendata("penguins.csv")
+        self.data.build_dict()
+
+    def test_build_dict(self): # Edge Test #1
+        """
+        Testing the first 20 and last 20 datasets
+        in the dictionairy.
+        """
+    def test_txtfile(self): # Edge Test #2
+        """
+        Testing if first two and last two
+        lines are correct.
+        """
+
+    def test_s_avg_bill(self): # Gen Test #1
+        """
+        Testing if the tupple returned is correct
+        """
+
+    def test_i_avg_bill(self): #Gen Test #2
+        """
+        Testing if the tupple returned is correct
+        """
+
+
 
 def writing(penguin, fname):
     """
