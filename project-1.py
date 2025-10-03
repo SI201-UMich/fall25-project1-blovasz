@@ -159,6 +159,14 @@ class TestPendata(unittest.TestCase):
         Testing if first two and last two
         lines are correct.
         """
+        file = open("avg.txt")
+        f = file.readlines()
+
+        self.assertEqual(f[:2],["Average Bill Length & Depth (mm) for Different Penguin Species:\n",
+                                "Species: Adelie Bill Length: 38.54 Bill Depth: 18.23\n"])
+        self.assertEqual(f[-2:],["Island: Biscoe Bill Length: 44.99 Bill Depth: 15.78\n",
+                                 "Island: Dream Bill Length: 44.17 Bill Depth: 18.34\n"])
+        file.close()
 
     def test_s_avg_bill(self): # Gen Test #1
         """
