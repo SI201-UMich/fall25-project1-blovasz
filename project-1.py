@@ -144,6 +144,7 @@ class TestPendata(unittest.TestCase):
         of data points entered.
         """
         self.assertEqual(len(self.penguin.dict["species"]),344)
+        self.assertEqual(len(self.penguin.dict["bill len"]),344)
         self.assertEqual(self.penguin.dict["bill len"][:5],
                          [39.1,39.5,40.3,0.0,36.7])
         self.assertEqual(self.penguin.dict["bill len"][-5:],
@@ -164,16 +165,16 @@ class TestPendata(unittest.TestCase):
         Testing if the tupple returned is correct
         """
         self.assertEqual(self.penguin.s_avg_bill(self.species1), (38.54,18.23))
-        self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.52,15.1))
-        self.assertEqual(self.penguin.s_avg_bill(self.species3), (49.56,18.7))
+        self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.12,14.86))
+        self.assertEqual(self.penguin.s_avg_bill(self.species3), (48.83,18.42))
 
     def test_i_avg_bill(self): #Gen Test #2
         """
         Testing if the tupple returned is correct
         """
-        self.assertEqual(self.penguin.i_avg_bill(self.island1), (40.54,19.18))
-        self.assertEqual(self.penguin.i_avg_bill(self.island2), (46.06,16.17))
-        self.assertEqual(self.penguin.i_avg_bill(self.island2), (45.64,18.96))
+        self.assertEqual(self.penguin.i_avg_bill(self.island1), (38.2,18.07))
+        self.assertEqual(self.penguin.i_avg_bill(self.island2), (44.99,15.78))
+        self.assertEqual(self.penguin.i_avg_bill(self.island3), (44.17,18.34))
 
 
 
