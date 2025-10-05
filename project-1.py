@@ -49,7 +49,7 @@ class Pendata():
         elif key == "flipper len" or key =="body mass":
             self.dict[key].append(int(split[x]))
         else:
-            self.dict[key].append(split[x].strip('"'))
+            self.dict[key].append(str(split[x].strip('"')))
     
     def build_dict(self):
         """
@@ -73,30 +73,6 @@ class Pendata():
         Returns the dictionairy.
         """
         return self.dict
-    
-    def i_avg_bill(self, island):
-        """
-        Returning the average bill length
-        and depth based on the different
-        island the penguins are on.
-
-        Should return as a tupple.
-        """
-        sum_blen = 0
-        sum_bdep = 0
-        count = 0
-
-        for i in range (0, len(self.dict["island"])):
-            if self.dict["island"][i] == island:
-                sum_blen += self.dict["bill len"][i]
-                sum_bdep += self.dict["bill depth"][i]
-                count += 1
-        
-        x = sum_blen/count
-        y = sum_bdep/count
-        
-        return (round(x,2), round(y,2))
-
 
     def s_avg_bill(self, species):
         """
@@ -120,6 +96,38 @@ class Pendata():
         y = sum_bdep/count
         
         return (round(x,2), round(y,2))
+    
+    def flipper_sex(self, species): #changed name from flowchart after remembering its sex and not gender
+        """
+        Getting avg flipper length by sex for each species
+        """
+        m = 0
+        m_count = 0
+        f = 0
+        f_count = 0
+        x = 0
+        x_count = 0
+
+        for s in range(0, len(self.dict["species"])):
+            if self.dict["species"][s] == species:
+                if self.dict["sex"][s] == "male":
+                    m += self.dict["flipper len"][s]
+                    m_count += 1
+                elif self.dict["sex"][s] == "female":
+                    f += self.dict["flipper len"][s]
+                    f_count += 1
+                elif self.dict["sex"][s] == "x": 
+                    x += self.dict["flipper len"][s]
+                    x_count += 1
+        
+        avg_m = m/m_count
+        avg_f = f/f_count
+        if x_count != 0:
+            avg_x = x/x_count
+        else:
+            avg_x = 0
+
+        return (round(avg_m, 2), round(avg_f, 2), round(avg_x, 2))
 
 class TestPendata(unittest.TestCase):
     """
@@ -132,10 +140,6 @@ class TestPendata(unittest.TestCase):
         self.species1 = "Adelie"
         self.species2 = "Gentoo"
         self.species3 = "Chinstrap"
-
-        self.island1 = "Torgersen"
-        self.island2 = "Biscoe"
-        self.island3 = "Dream"
 
     def test_build_dict(self): # Edge Test #1
         """
@@ -164,8 +168,8 @@ class TestPendata(unittest.TestCase):
 
         self.assertEqual(f[:2],["Average Bill Length & Depth (mm) for Different Penguin Species:\n",
                                 "Species: Adelie Bill Length: 38.54 Bill Depth: 18.23\n"])
-        self.assertEqual(f[-2:],["Island: Biscoe Bill Length: 44.99 Bill Depth: 15.78\n",
-                                 "Island: Dream Bill Length: 44.17 Bill Depth: 18.34\n"])
+        self.assertEqual(f[-2:],["Species: Gentoo M: 221.54 F: 212.71 Other: 172.6\n",
+                                 "Species: Chinstrap M: 199.91 F: 191.74 Other: 0\n"]) 
         file.close()
 
     def test_s_avg_bill(self): # Gen Test #1
@@ -176,14 +180,13 @@ class TestPendata(unittest.TestCase):
         self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.12,14.86))
         self.assertEqual(self.penguin.s_avg_bill(self.species3), (48.83,18.42))
 
-    def test_i_avg_bill(self): #Gen Test #2
+    def test_flipper_sex(self): # Gen Test #2
         """
-        Testing if the tupple returned is correct
+        Testing if tupple returned is correct
         """
-        self.assertEqual(self.penguin.i_avg_bill(self.island1), (38.2,18.07))
-        self.assertEqual(self.penguin.i_avg_bill(self.island2), (44.99,15.78))
-        self.assertEqual(self.penguin.i_avg_bill(self.island3), (44.17,18.34))
-
+        self.assertEqual(self.penguin.flipper_sex(self.species1), (192.41,187.79,154.67))
+        self.assertEqual(self.penguin.flipper_sex(self.species2), (221.54,212.71,172.6))
+        self.assertEqual(self.penguin.flipper_sex(self.species3), (199.91, 191.74, 0))
 
 
 def writing(penguin, fname):
@@ -193,9 +196,8 @@ def writing(penguin, fname):
     island and species of the penguins.
     """
     file = open(fname,"w")
-    dic = penguin.get_dict()
+    dic = penguin.dict
     s_used = []
-    i_used = []
 
     file.write("Average Bill Length & Depth (mm) for Different Penguin Species:\n")
     for s in dic["species"]:
@@ -204,12 +206,14 @@ def writing(penguin, fname):
             file.write(f"Species: {s} Bill Length: {len} Bill Depth: {dep}\n")
             s_used.append(s)
 
-    file.write("\nAverage Bill Length & Depth (mm) for Penguins on Different Islands:\n")
-    for i in dic["island"]:
-        if i not in i_used:
-            len,dep = penguin.i_avg_bill(i)
-            file.write(f"Island: {i} Bill Length: {len} Bill Depth: {dep}\n")
-            i_used.append(i)
+    s_used = []
+
+    file.write("\nAverage Flipper Length for Each Species' Sex:\n")
+    for s in dic["species"]:
+        if s not in s_used:
+            m, f, x = penguin.flipper_sex(s)
+            file.write(f"Species: {s} M: {m} F: {f} Other: {x}\n")
+            s_used.append(s)
 
     file.close()
     return file
