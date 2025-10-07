@@ -84,16 +84,20 @@ class Pendata():
         """
         sum_blen = 0
         sum_bdep = 0
-        count = 0
+        blencount = 0
+        bdepcount = 0
 
         for i in range (0, len(self.dict["species"])):
             if self.dict["species"][i] == species:
-                sum_blen += self.dict["bill len"][i]
-                sum_bdep += self.dict["bill depth"][i]
-                count += 1
+                if self.dict["bill len"][i] != 0: 
+                    sum_blen += self.dict["bill len"][i]
+                    blencount += 1
+                if self.dict["bill depth"][i] != 0:
+                    sum_bdep += self.dict["bill depth"][i]
+                    bdepcount += 1
         
-        x = sum_blen/count
-        y = sum_bdep/count
+        x = sum_blen/blencount
+        y = sum_bdep/bdepcount
         
         return (round(x,2), round(y,2))
     
@@ -111,14 +115,17 @@ class Pendata():
         for s in range(0, len(self.dict["species"])):
             if self.dict["species"][s] == species:
                 if self.dict["sex"][s] == "male":
-                    m += self.dict["flipper len"][s]
-                    m_count += 1
+                    if self.dict["flipper len"][s] != 0:
+                        m += self.dict["flipper len"][s]
+                        m_count += 1
                 elif self.dict["sex"][s] == "female":
-                    f += self.dict["flipper len"][s]
-                    f_count += 1
+                    if self.dict["flipper len"][s] != 0:
+                        f += self.dict["flipper len"][s]
+                        f_count += 1
                 elif self.dict["sex"][s] == "x": 
-                    x += self.dict["flipper len"][s]
-                    x_count += 1
+                    if self.dict["flipper len"][s] != 0:
+                        x += self.dict["flipper len"][s]
+                        x_count += 1
         
         avg_m = m/m_count
         avg_f = f/f_count
@@ -167,8 +174,8 @@ class TestPendata(unittest.TestCase):
         f = file.readlines()
 
         self.assertEqual(f[:2],["Average Bill Length & Depth (mm) for Different Penguin Species:\n",
-                                "Species: Adelie Bill Length: 38.54 Bill Depth: 18.23\n"])
-        self.assertEqual(f[-2:],["Species: Gentoo M: 221.54 F: 212.71 Other: 172.6\n",
+                                "Species: Adelie Bill Length: 38.79 Bill Depth: 18.35\n"])
+        self.assertEqual(f[-2:],["Species: Gentoo M: 221.54 F: 212.71 Other: 215.75\n",
                                  "Species: Chinstrap M: 199.91 F: 191.74 Other: 0\n"]) 
         file.close()
 
@@ -176,16 +183,16 @@ class TestPendata(unittest.TestCase):
         """
         Testing if the tupple returned is correct
         """
-        self.assertEqual(self.penguin.s_avg_bill(self.species1), (38.54,18.23))
-        self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.12,14.86))
+        self.assertEqual(self.penguin.s_avg_bill(self.species1), (38.79,18.35))
+        self.assertEqual(self.penguin.s_avg_bill(self.species2), (47.5,14.98))
         self.assertEqual(self.penguin.s_avg_bill(self.species3), (48.83,18.42))
 
     def test_flipper_sex(self): # Gen Test #2
         """
         Testing if tupple returned is correct
         """
-        self.assertEqual(self.penguin.flipper_sex(self.species1), (192.41,187.79,154.67))
-        self.assertEqual(self.penguin.flipper_sex(self.species2), (221.54,212.71,172.6))
+        self.assertEqual(self.penguin.flipper_sex(self.species1), (192.41,187.79,185.6))
+        self.assertEqual(self.penguin.flipper_sex(self.species2), (221.54,212.71,215.75))
         self.assertEqual(self.penguin.flipper_sex(self.species3), (199.91, 191.74, 0))
 
 

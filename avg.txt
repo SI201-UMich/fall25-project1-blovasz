@@ -1,9 +1,9 @@
 Average Bill Length & Depth (mm) for Different Penguin Species:
-Species: Adelie Bill Length: 38.54 Bill Depth: 18.23
-Species: Gentoo Bill Length: 47.12 Bill Depth: 14.86
+Species: Adelie Bill Length: 38.79 Bill Depth: 18.35
+Species: Gentoo Bill Length: 47.5 Bill Depth: 14.98
 Species: Chinstrap Bill Length: 48.83 Bill Depth: 18.42
 
 Average Flipper Length for Each Species' Sex:
-Species: Adelie M: 192.41 F: 187.79 Other: 154.67
-Species: Gentoo M: 221.54 F: 212.71 Other: 172.6
+Species: Adelie M: 192.41 F: 187.79 Other: 185.6
+Species: Gentoo M: 221.54 F: 212.71 Other: 215.75
 Species: Chinstrap M: 199.91 F: 191.74 Other: 0
