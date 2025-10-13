@@ -16,6 +16,8 @@ class Pendata():
         """
         Opening the csv file.
         Creating the empty dictionairy.
+
+        file (string) is the name of the file we're opening 
         """
         self.base_path = os.path.abspath(os.path.dirname(__file__))
         self.full_path = os.path.join(self.base_path, file)
@@ -39,6 +41,10 @@ class Pendata():
     def checking_data(self, split, key, x):
         """
         Checking if data == NA
+
+        split (list) is a line in the file seperated by commas
+        key (string) is the key name we're going to access in the dictionairy
+        x (int) is the index in split we're pulling from 
         """
         if split[x] == "NA":
             if key == "sex":
@@ -76,6 +82,8 @@ class Pendata():
         species of the penguins.
 
         Should return as a tupple.
+
+        species (string) the name of the species we're looking at
         """
         sum_blen = 0
         sum_bdep = 0
@@ -99,6 +107,8 @@ class Pendata():
     def flipper_sex(self, species): #changed name from flowchart after remembering its sex and not gender
         """
         Getting avg flipper length by sex for each species
+
+        Species (string) name of the species we're looking at
         """
         m = 0
         m_count = 0
@@ -199,6 +209,9 @@ def writing(penguin, fname):
     Organizing the data of the average
     bill length and depth. Based on the
     island and species of the penguins.
+
+    penguin (object) is the object we're using
+    fname (string) is the file name
     """
     file = open(fname,"w")
     dic = penguin.dict
