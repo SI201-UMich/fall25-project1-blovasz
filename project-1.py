@@ -67,12 +67,6 @@ class Pendata():
             self.checking_data(split, "body mass", 6)
             self.checking_data(split, "sex", 7)
             self.dict["year"].append(int(split[8]))
-    
-    def get_dict(self):
-        """
-        Returns the dictionairy.
-        """
-        return self.dict
 
     def s_avg_bill(self, species):
         """
@@ -167,7 +161,7 @@ class TestPendata(unittest.TestCase):
         self.assertEqual(self.penguin.dict["sex"][-5:],
                         ["male", "female", "male", "male", "female"])
         self.assertEqual(self.penguin.dict["sex"][:5],
-                         "male","female","female", "x", "female")
+                         ["male","female","female", "x", "female"])
 
     def test_txtfile(self): # Edge Test #2
         """
