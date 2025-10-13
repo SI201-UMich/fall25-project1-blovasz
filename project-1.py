@@ -164,6 +164,10 @@ class TestPendata(unittest.TestCase):
                          [18.7,17.4,18.0,0.0,19.3])
         self.assertEqual(self.penguin.dict["bill depth"][-5:],
                          [19.8,18.1,18.2,19.0,18.7])
+        self.assertEqual(self.penguin.dict["sex"][-5:],
+                        ["male", "female", "male", "male", "female"])
+        self.assertEqual(self.penguin.dict["sex"][:5],
+                         "male","female","female", "x", "female")
 
     def test_txtfile(self): # Edge Test #2
         """
@@ -194,7 +198,6 @@ class TestPendata(unittest.TestCase):
         self.assertEqual(self.penguin.flipper_sex(self.species1), (192.41,187.79,185.6))
         self.assertEqual(self.penguin.flipper_sex(self.species2), (221.54,212.71,215.75))
         self.assertEqual(self.penguin.flipper_sex(self.species3), (199.91, 191.74, 0))
-
 
 def writing(penguin, fname):
     """
